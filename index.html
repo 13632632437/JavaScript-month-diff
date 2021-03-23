@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./moment.js"></script>
+    <script>
+        //传入的格式YYYY-MM
+        function getMonthBetween(start, end) {
+            var result = [];
+            // 切割时间
+            var s = start.split("-");
+            var e = end.split("-");
+
+            
+            // 转换为标准时间格式
+            var min = new Date();
+            var max = new Date();
+            var yearMonthCode;
+            var yearMonth;
+            // 设置年月日
+            min.setFullYear(s[0], s[1] * 1 - 1, 1);//开始日期
+            max.setFullYear(e[0], e[1] * 1 - 1, 1);//结束日期
+
+
+            // 中间变量设置为开始时间
+            var curr = min;
+            // 时间比较
+            while (curr <= max) {
+                // 中间变量小于结束时间
+                yearMonthCode = moment(curr).format('YYYY-MM')
+                var month = curr.getMonth();
+                var year = curr.getFullYear();
+                // 月份加1，下次循环比较，直到结束月份
+                var m = month + 1
+                result.push({
+                    yearMonthCode: yearMonthCode,
+                    yearMonth: year + '年' + m + '月'
+                });
+                curr.setMonth(month + 1);
+            }
+            return result;
+        }
+        console.log(getMonthBetween('2020-02', '2021-02'))
+    </script>
+</body>
+
+</html>
